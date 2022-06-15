@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="grid">
+    <div class="filter-bar">
+      <input class="search-bar" type="search" [(ngModel)]="name" (ngModelChange)="nameFilter()"
+             placeholder="Rechercher...">
+      <div class="filter-types" (click)="filerMenuOpen()">
+        <div class="div-img"><img style="width: 20px; height: 20px;" src="assets/14963.png" alt=""></div>
+        <div class="div-p">TYPES</div>
+        <div class="div-icons"><i class="material-icons {{filterOpen?'selected-types':'not-selected-types'}}">arrow_right</i></div>
+      </div>
+    </div>
+    <div style="margin-top: 3rem; margin-bottom: 3rem" *ngIf="filterOpen">
+      <p class="col l2 m2 s12" style="margin-left: 20px;" *ngFor="let typePokemon of pokemonTypes">
+        <label>
+          <input id="{{typePokemon}}"
+                 type="checkbox"
+                 class="filled-in"
+                 [value]="typePokemon"
+                 (change)="toggleTypeFilter(typePokemon)">
+          <span [attr.for]="typePokemon">
+          <span class="{{ typePokemon | pokemonTypeColor }}">
+            {{ typePokemon }}
+          </span>
+        </span>
+        </label>
+      </p>
+    </div>
+  </div>
+</div>

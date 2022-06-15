@@ -1,0 +1,14 @@
+.back-home{
+  color: black;
+  font-size: 18px;
+}
+
+.back-home:hover{
+  color: black;
+  font-size: 25px;
+}
+
+.img-error{
+  width: 500px;
+  height: 500px;
+}

@@ -1,0 +1,111 @@
+.input-checkbox {
+  opacity: 100;
+  pointer-events: auto;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+}
+
+.container {
+  margin-bottom: 2rem;
+  width: 100%;
+  height: auto;
+}
+
+.filter-bar {
+  display: flex;
+  flex-direction: row;
+  height: 3rem;
+  padding-left: 3rem;
+  width: 100%;
+  border: none;
+}
+
+
+.filter-types {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+
+  height: 100%;
+  width: 20rem;
+  margin-left: 3rem;
+  background-color: #313131;
+  color: white;
+  padding-left: 1rem;
+  border-radius: 10px;
+}
+
+.filter-types:hover {
+  cursor: pointer;
+}
+
+input.search-bar {
+  width: 20rem;
+  border: solid 1px;
+  border-radius: 5px;
+  padding-left: 0.5rem;
+}
+
+
+input:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=url]:not(.browser-default):focus:not([readonly]),
+input[type=time]:not(.browser-default):focus:not([readonly]),
+input[type=date]:not(.browser-default):focus:not([readonly]),
+input[type=datetime]:not(.browser-default):focus:not([readonly]),
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+input[type=tel]:not(.browser-default):focus:not([readonly]),
+input[type=number]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+  background-color: #313131;
+  color: white;
+
+  border-bottom: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.div-img {
+  width: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.div-p {
+  flex-grow: 1;
+  display: flex;
+  justify-content: left;
+  font-weight: bolder;
+  margin-left: 0.5rem;
+}
+
+.div-icons {
+  width: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.selected-types {
+  animation-name: selected-types;
+  animation-delay: 0.25s;
+  animation-duration: 0.50s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes selected-types {
+  100% {
+    transform: rotate(90deg);
+  }
+}
+
+.checkbox-container {
+  background-color: #313131;
+}
+

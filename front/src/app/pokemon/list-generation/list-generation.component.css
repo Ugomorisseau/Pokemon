@@ -1,0 +1,26 @@
+.img-size{
+  max-height: 140px;
+}
+
+.card-image{
+  padding: 10px;
+}
+
+.material-icons{
+  color: grey;
+}
+
+.material-icons:hover{
+  color: black;
+  cursor: pointer;
+}
+
+.card{
+  cursor: pointer;
+}
+
+.card:hover{
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.5);
+}
+
+

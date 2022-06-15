@@ -1,0 +1,17 @@
+<div class="container center">
+  <div class="row">
+    <div *ngFor="let generation of generationList" class="col l6 m12 s12">
+      <div (click)="goToFirstGeneration(generation)" class="card horizontal">
+        <div class="card-image">
+          <img class="img-size" src="{{generation.picture}}" alt="generation.picture">
+        </div>
+        <div class="card-stacked">
+          <div class="card-content right">
+            <h5 class="card-title small">{{generation.name}}</h5>
+            <p>{{generation.nbPokemon}} pokemons</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

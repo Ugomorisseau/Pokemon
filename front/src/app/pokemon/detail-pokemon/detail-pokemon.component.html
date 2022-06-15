@@ -1,0 +1,51 @@
+<div *ngIf="pokemon" class="row">
+  <div class="col s12 m8 offset-m2">
+    <h2 class="header center">{{ pokemon.race }}</h2>
+    <div class="card horizontal hoverable">
+      <div class="card-image">
+        <img [src]="pokemon.picture">
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <table class="bordered striped">
+            <tbody>
+            <tr>
+              <td>Race</td>
+              <td><strong>{{ pokemon.race }}</strong></td>
+            </tr>
+            <tr>
+              <td>Surnom</td>
+              <td><strong>{{ pokemon.name }}</strong></td>
+            </tr>
+            <tr>
+              <td>Points de vie</td>
+              <td><strong>{{ pokemon.hp }}</strong></td>
+            </tr>
+            <tr>
+              <td>Dégâts</td>
+              <td><strong>{{ pokemon.cp }}</strong></td>
+            </tr>
+            <tr>
+              <td>Types</td>
+              <td>
+                <span *ngFor="let type of pokemon.types" class="{{ type | pokemonTypeColor }}">{{ type }}</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Date de création</td>
+              <td><em>{{ pokemon.created | date:"dd/MM/yyyy" }}</em></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-action">
+          <i (click)="goBack()" class="material-icons small button-back"
+             [appColorButtonDirective]="pokemon.types[0] | pokemonTypeColorBorderHover">arrow_back</i>
+          <i (click)="goToEditPokemon(pokemon)" class="material-icons small button-back"
+             [appColorButtonDirective]="pokemon.types[0] | pokemonTypeColorBorderHover">create</i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<h4 *ngIf='!pokemon' class="center">Aucun pokémon à afficher !</h4>

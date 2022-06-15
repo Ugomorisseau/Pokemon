@@ -1,0 +1,5 @@
+<h2 class="center">Modifier {{pokemon?.race}}</h2>
+<p class="center">
+  <img [src]="pokemon?.picture" alt="">
+</p>
+<app-pokemon-edit-form *ngIf="pokemon" [pokemon]="pokemon"></app-pokemon-edit-form>

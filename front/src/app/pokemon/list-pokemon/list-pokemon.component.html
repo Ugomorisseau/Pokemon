@@ -1,0 +1,22 @@
+<div class="container center">
+  <div class="row">
+    <app-filter-pokemons (filterChange)="changeFilter($event)"></app-filter-pokemons>
+    <div style="margin-top: 2rem" *ngFor="let pokemon of filterList" class="col l6 m12 s12">
+      <div (click)="goDetails(pokemon)" class="card horizontal" [pokemonBorderCard]="pokemon.types[0] | pokemonTypeColorBorderHover">
+        <div class="card-image">
+          <img [src]="pokemon.picture" alt="pokemon.name">
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <p>{{pokemon.race}}</p>
+            <p><small>{{ pokemon.created | date:"dd/MM/yyyy" | uppercase }}</small></p>
+            <p style="margin-bottom: 10px"><small>hp : {{ pokemon.hp }}</small></p>
+            <span *ngFor="let type of pokemon.types" class="{{ type | pokemonTypeColor }}">
+              {{ type }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
