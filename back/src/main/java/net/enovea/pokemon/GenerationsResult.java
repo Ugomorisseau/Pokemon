@@ -3,6 +3,6 @@ package net.enovea.pokemon;
 import lombok.Data;
 
 @Data
-public class Generation {
+public class GenerationsResult {
     private Results[] results;
 }

@@ -9,5 +9,5 @@ public class PokemonForm {
    private int count;
    private String next;
    private String previous;
-   private List<Results> results;
+   private List<PokemonUrl> results;
 }
