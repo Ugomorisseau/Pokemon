@@ -9,5 +9,4 @@ public class PokemonFormId {
     private Pokemon pokemon;
     private Sprites sprites;
     private Types[] types;
-    private VersionGroup version_group;
 }

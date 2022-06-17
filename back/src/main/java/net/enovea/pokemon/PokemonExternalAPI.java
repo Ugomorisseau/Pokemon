@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PokemonExternalAPI {
@@ -17,7 +18,7 @@ public class PokemonExternalAPI {
     }
 
     public List<PokemonUrl> getPokemonsUrl() throws IOException {
-        URL url = new URL("https://pokeapi.co/api/v2/pokemon-form/?limit=500");
+        URL url = new URL("https://pokeapi.co/api/v2/pokemon-form/?limit=898");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         con.connect();
@@ -64,7 +65,7 @@ public class PokemonExternalAPI {
                 });
     }
 
-    public GenerationsResult retrieveGenerations() throws IOException {
+    public List<PokemonUrl> getGenerationsUrl() throws IOException {
         URL urlGeneration = new URL("https://pokeapi.co/api/v2/generation/");
         HttpURLConnection conn = (HttpURLConnection) urlGeneration.openConnection();
         conn.setRequestMethod("GET");
@@ -78,6 +79,33 @@ public class PokemonExternalAPI {
         }
         scannerGeneration.close();
 
-        return objectMapper.readValue(informationGenerationString.toString(), GenerationsResult.class);
+        GenerationsResult generationsResult = objectMapper.readValue(informationGenerationString.toString(), GenerationsResult.class);
+        return generationsResult.getResults();
+    }
+
+    public List<GenerationId> retrieveGenerationsDetails(List<PokemonUrl> generationInfos){
+        return generationInfos.parallelStream()
+                .map(result -> {
+                    try {
+                        var resultBuilderGeneration = new StringBuilder();
+
+                        URL urlGeneration = new URL(result.getUrl());
+                        HttpURLConnection conn = (HttpURLConnection) urlGeneration.openConnection();
+                        conn.setRequestMethod("GET");
+                        conn.connect();
+
+                        var scannerTmp = new Scanner(urlGeneration.openStream());
+                        while (scannerTmp.hasNext()) {
+                            resultBuilderGeneration.append(scannerTmp.nextLine());
+                        }
+
+                        scannerTmp.close();
+                        return objectMapper.readValue(resultBuilderGeneration.toString(), GenerationId.class);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }).collect(Collectors.toList());
+
     }
 }

@@ -1,0 +1,92 @@
+html, body{
+  width: 100%;
+  height: 100%;
+  font-family: monospace, sans-serif;
+}
+
+.parallax1{
+  background: url("https://c.wallhere.com/photos/b1/ef/Pok_mon_forest-2096373.jpg!d") fixed;
+  background-size: cover;
+  width: 100%;
+  height: 600px;
+}
+
+.parallax2{
+  background: url("https://c.wallhere.com/photos/44/db/1500x900_px_pokemon-1707461.jpg!d") fixed;
+  background-size: cover;
+  width: 100%;
+  height: 600px;
+}
+
+.parallax3{
+  background: url("https://c.wallhere.com/photos/dc/7f/anime_digital_art_artwork_2D_portrait_Pok_mon-1660699.jpg!d") fixed;
+  background-size: cover;
+  width: 100%;
+  height: 1080px;
+}
+
+.message{
+  width: 100%;
+  color: white;
+  height: 550px;
+  background-color: #313131;
+  font-size: 2.5em;
+  text-align: center;
+  position: relative;
+  top: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.message::before{
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(to bottom, transparent 0%, #313131 40%, transparent 60%);
+}
+
+.message::after{
+  content: "";
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(to top, transparent 0%, #313131 40%, transparent 60%);
+}
+
+.message:hover{
+  cursor: pointer;
+}
+
+.img-home-pokedex{
+  display: flex;
+  flex-direction: row;
+  height: 300px;
+}
+
+.img-home-pokedex img{
+  margin-left: 20px;
+}
+
+.holder{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: -100vh;
+  background-color: #313131;
+  opacity: 0;
+  transition: opacity 1s ease-in-out ;
+  transition-duration: 1s;
+  z-index: 100;
+}
+
+.holder.active{
+  opacity: 1;
+  top: 0;
+}
+

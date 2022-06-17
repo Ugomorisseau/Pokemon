@@ -10,22 +10,11 @@
 
 <body>
 
-<nav>
-  <div class="nav-wrapper display-list">
-    <a  (click)="goToHome()" class="black-text left"><img width="50px" height="50px" class="circle responsive-img logo-pokeball left" src="../assets/pokeball.ico" alt=""></a>
-    <ul class="space">
-      <li class=""><a (click)="goToHome()">HOME</a></li>
-      <li class="active"><a (click)="goToPokedex()">POKEDEX</a></li>
-      <li class=""><a href="">JOUER</a></li>
-    </ul>
-  </div>
-</nav>
 
 
 
-<div class="position-liste">
+
   <router-outlet></router-outlet>
-</div>
 
 </body>
 </html>

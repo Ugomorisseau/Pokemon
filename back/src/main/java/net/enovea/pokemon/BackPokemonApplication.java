@@ -18,13 +18,16 @@ public class BackPokemonApplication {
         try {
             Connection bddConnection = pokemonRepository.bddConnect();
             pokemonRepository.deletePokemonTable(bddConnection);
-            List<PokemonUrl> pokemonInfos = pokemonExternalAPI.getPokemonsUrl();
+            pokemonRepository.deleteGenerationTable(bddConnection);
 
+            List<PokemonUrl> generationInfos = pokemonExternalAPI.getGenerationsUrl();
+            List<GenerationId> generationDetails = pokemonExternalAPI.retrieveGenerationsDetails(generationInfos);
+            pokemonRepository.insertGenerations(bddConnection, generationDetails);
+
+            List<PokemonUrl> pokemonInfos = pokemonExternalAPI.getPokemonsUrl();
             Stream<PokemonFormId> pokemonsDetails = pokemonExternalAPI.retrievePokemonsDetails(pokemonInfos);
             pokemonRepository.insertPokemonsDetails(bddConnection, pokemonsDetails);
 
-            GenerationsResult generationsResult = pokemonExternalAPI.retrieveGenerations();
-            System.out.println("Liste des générations : " + generationsResult);
 
         } catch (Exception e) {
             e.printStackTrace();
