@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {Generation} from "../generation";
 import {GENERATIONS} from "../mock-generations-list";
@@ -12,15 +12,14 @@ export class ListGenerationComponent implements OnInit {
 
   generationList: Generation[] = GENERATIONS;
 
-  constructor(private router: Router) { }
-
-  goToFirstGeneration(generation: Generation){
-    this.router.navigate(['/generation/' + generation.id + '/pokemons']);
+  constructor(private router: Router) {
   }
 
-
-
-  ngOnInit(): void {
+  goToFirstGeneration(){
+    this.router.navigate(['/generation/1/pokemons']);
   }
 
+  ngOnInit() {
+  }
 }
+

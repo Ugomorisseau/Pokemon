@@ -1,39 +1,8 @@
-.position-liste{
-}
-
-nav{
-  background-color: transparent;
-}
-
-.display-list{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-.space{
-  margin-left: 2rem;
-}
-
-nav a {
-  color: black;
-  font-size: 17px;
-}
-
-nav img:hover{
-  width: 35px;
-  height: 35px;
+body{
 }
 
 
-nav a:hover {
-  cursor: pointer;
-}
 
-nav ul li.active {
-  background-color: #8d8d8d;
-  font-weight: bolder;
-}
+
 
 

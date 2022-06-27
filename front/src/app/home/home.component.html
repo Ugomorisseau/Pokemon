@@ -1,25 +1,28 @@
 
-<div class="holder" [ngClass]="{'active': clicked}"></div>
-
-<div class="parallax1"></div>
-
-<div (click)="goToGeneration()" class="message">
-    <div class="img-home-pokedex">
-      <img src="./assets/bulbizarre.png" alt="">
-      <img src="./assets/herbizarre.png" alt="">
-      <img src="./assets/florizarre.png" alt="">
-      <img src="./assets/salamèche.png" alt="">
-      <img src="./assets/reptincel.png" alt="">
-      <img src="./assets/dracaufeu.png" alt="">
-      <img src="./assets/carapuce.png" alt="">
-      <img src="./assets/carabaffe.png" alt="">
-      <img src="./assets/tortank.png" alt="">
-    </div>
+<div class="anime-background">
 </div>
-
-<div class="parallax2"></div>
-
-<div class="message"></div>
-
-<div class="parallax3"></div>
-
+<app-navbar></app-navbar>
+<div class="background-list-generation">
+  <div class="background-current-page">
+    <div class="current-page">
+      <p>Home </p>
+    </div>
+  </div>
+  <div class="background-list">
+    <img class="haut-poke" src="./assets/Pokeball-haut.png" alt="">
+    <div class="container center slider-generation">
+      <ng-image-slider
+        class="ng-image-slider"
+        [images]="generationList"
+        [infinite]="true"
+        [autoSlide]="3"
+        [imageSize]="{width: '25%', height: 210}"
+        slideImage="1"
+        [manageImageRatio]="true"
+        [lazyLoading]="true"
+        [imagePopup]="true"
+      ></ng-image-slider>
+    </div>
+    <img class="bas-poke" src="./assets/Pokeball-bas%20(1).png" alt="">
+  </div>
+</div>

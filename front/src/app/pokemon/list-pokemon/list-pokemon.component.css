@@ -23,3 +23,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .p-nickname{
   font-size: 1.4rem;
 }
+
+.container{
+  margin-top: 5rem;
+}

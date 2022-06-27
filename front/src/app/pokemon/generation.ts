@@ -3,4 +3,8 @@ export class Generation{
   name: string;
   nbPokemon: number;
   picture: string;
+  image: string;
+  title: string;
+  thumbImage: string;
 }
+

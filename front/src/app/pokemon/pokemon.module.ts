@@ -13,6 +13,9 @@ import { PokemonEditFormComponent } from './pokemon-edit-form/pokemon-edit-form.
 import { EditPokemonComponent } from './edit-pokemon/edit-pokemon.component';
 import { ListGenerationComponent } from './list-generation/list-generation.component';
 import { FilterPokemonsComponent } from './filter-pokemons/filter-pokemons.component';
+import {NgImageSliderModule} from "ng-image-slider";
+import {NavbarComponent} from "./navbar/navbar.component";
+import { InfosComponent } from './infos/infos.component';
 
 
 const pokemonRoutes: Routes = [
@@ -20,6 +23,7 @@ const pokemonRoutes: Routes = [
   {path: 'generation', component: ListGenerationComponent },
   {path: 'generation/1/pokemons', component: ListPokemonComponent},
   {path: 'pokemon/:id', component: DetailPokemonComponent},
+  {path: 'infos', component: InfosComponent},
 ];
 
 @NgModule({
@@ -34,12 +38,18 @@ const pokemonRoutes: Routes = [
     EditPokemonComponent,
     ListGenerationComponent,
     FilterPokemonsComponent,
+    NavbarComponent,
+    InfosComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild(pokemonRoutes)
+    RouterModule.forChild(pokemonRoutes),
+    NgImageSliderModule
   ],
   providers: [PokemonService],
+  exports: [
+    NavbarComponent
+  ]
 })
 export class PokemonModule { }

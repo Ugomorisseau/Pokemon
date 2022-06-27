@@ -1,0 +1,22 @@
+
+<div class="holder" [ngClass]="{'active': clicked}"></div>
+
+<nav class="navbar">
+  <div class="nav-wrapper">
+    <ul id="liContainer">
+      <li (click)="goToHome()" class="liElement li-home nav-wrapper">
+          <span class="span-title">Home</span>
+      </li>
+      <li (click)="goToPokedex()" class="liElement li-pokedex nav-wrapper">
+          <span class="span-title">Pokédex</span>
+      </li>
+      <li class="liElement li-play nav-wrapper">
+          <span class="span-title">Jouer</span>
+      </li>
+      <li (click)="goToInfos()" class="liElement li-infos nav-wrapper">
+        <span class="span-title">Infos</span>
+      </li>
+    </ul>
+  </div>
+</nav>
+

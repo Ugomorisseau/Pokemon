@@ -1,8 +1,12 @@
+
+<div class="anime-background"></div>
+
+<app-navbar></app-navbar>
+
 <div class="container center">
-  <div class="holder"></div>
   <div class="row">
     <div *ngFor="let generation of generationList" class="col l6 m12 s12">
-      <div (click)="goToFirstGeneration(generation)" class="card horizontal">
+      <div (click)="goToFirstGeneration()" class="card horizontal">
         <div class="card-image">
           <img class="img-size" src="{{generation.picture}}" alt="generation.picture">
         </div>

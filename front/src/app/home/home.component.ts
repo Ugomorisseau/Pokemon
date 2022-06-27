@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {Generation} from "../pokemon/generation";
+import {GENERATIONS} from "../pokemon/mock-generations-list";
 
 @Component({
   selector: 'app-home',
@@ -8,17 +10,9 @@ import {Router} from "@angular/router";
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router : Router) { }
+  generationList: Generation[] = GENERATIONS;
 
-  public clicked : boolean = false;
-
-  goToGeneration(){
-    this.clicked = true;
-    setTimeout(() => {
-      this.router.navigate(['/generation']);
-    },2000);
-  }
-
+  constructor() { }
 
 
   ngOnInit(): void {
