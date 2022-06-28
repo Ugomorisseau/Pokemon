@@ -123,3 +123,24 @@ html, body {
   cursor: pointer;
 }
 
+.anime-background{
+  height: 100%;
+  width: 100%;
+  z-index: -10;
+  position: absolute;
+  background-color: #313131;
+  animation: anime-background 2s ease-in-out;
+  opacity: 0;
+}
+
+@keyframes anime-background {
+  0% {
+    opacity: 1;
+    z-index: 10000;
+  }
+  100% {
+    opacity: 0;
+    z-index: -10;
+  }
+}
+
