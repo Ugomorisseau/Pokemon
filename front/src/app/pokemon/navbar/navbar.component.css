@@ -135,6 +135,94 @@
   top: 0;
 }
 
+.dropdown-account{
+  display:flex;
+  justify-content: center;
+  height: 100%;
+  margin-left: 6rem;
+}
+
+.dropdown-account li a {
+  color: black;
+  height: 100%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-account li{
+  display: block;
+  transition-duration: 0.5s;
+}
+
+.dropdown-account li:hover{
+  cursor: pointer;
+}
+
+.dropdown-account li ul{
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  transition: all 0.5s ease;
+  display: none;
+}
+
+.dropdown-account  li:hover > ul,
+.dropdown-account li ul:hover{
+  visibility: visible;
+  opacity: 1;
+  display: block;
+  z-index: 10000000;
+  background-color: #606060;
+}
+
+.dropdown-account li ul li {
+  clear: both;
+  width: 100%;
+}
+
+.dropdown-account li ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+
+.li-account{
+  color: #464646;
+}
+
+.li-account::after{
+  background-color: #606060;
+  border-radius: 0 0 10px 10px;
+}
+
+.li-account:hover{
+  background-color: #606060;
+  color: white;
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

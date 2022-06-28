@@ -36,6 +36,20 @@ export class NavbarComponent implements OnInit {
     },2000);
   }
 
+  goToLogin(){
+    this.clicked = true;
+    setTimeout(() => {
+      this.router.navigate(['/login']);
+    },2000);
+  }
+
+  goToRegister(){
+    this.clicked = true;
+    setTimeout(() => {
+      this.router.navigate(['/register']);
+    },2000);
+  }
+
   ngOnInit(): void {
   }
 
