@@ -32,7 +32,6 @@ public class PokemonRepository {
         StringBuilder requestBuilder = new StringBuilder();
         StringBuilder requestBuilder2 = new StringBuilder();
 
-
         requestBuilder.append("INSERT INTO generations (name, id) VALUES");
         var values = generations.stream().map(generation -> "('" + generation.getName() + "', '" + generation.getId() + "')")
                 .collect(Collectors.joining(",\n"));
@@ -42,33 +41,20 @@ public class PokemonRepository {
             statement.executeUpdate(requestBuilder.toString());
         }
 
-        requestBuilder2.append("INSERT INTO pokemons (name, nickname, generation_id) VALUES");
+        requestBuilder2.append("INSERT INTO pokemons (name, nickname) VALUES");
         var values2 = generations.stream().map(this::getPokemonsByGeneration)
                 .collect(Collectors.joining(",\n"));
         requestBuilder2.append(values2);
         try (var statement = bddConnection.createStatement()) {
             statement.executeUpdate(requestBuilder2.toString());
         }
-
     }
 
     public String getPokemonsByGeneration(GenerationId generation){
-        String result = "";
-        var innerResult = Arrays.stream(generation.getPokemon_species()).map(pokemonSpecies -> {
-            index += 1;
-            return "('" + generation.getPokemon_species()[index].getName() + "' +  '" + generation.getPokemon_species()[index].getName() + "')";
-        });
-        result = innerResult.collect(Collectors.joining(",\n"));
+        var result= Arrays.stream(generation.getPokemon_species())
+                .map(pokemon -> "('" + pokemon.getName() + "' , '" + pokemon.getName() + "')")
+                .collect(Collectors.joining(",\n"));
         System.out.println(result);
-        return result;
-    }
-
-    public int getIdOfGeneration(GenerationId generation){
-        int result = 0;
-        var innerResult = Arrays.stream(generation.getId()).map(generationId -> {
-            return "('" + generation.getId() + "')";
-        });
-        result = innerResult.collect(Collectors.joining(",\n"));
         return result;
     }
 
