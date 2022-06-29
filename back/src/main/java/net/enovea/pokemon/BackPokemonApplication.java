@@ -28,7 +28,6 @@ public class BackPokemonApplication {
             Stream<PokemonFormId> pokemonsDetails = pokemonExternalAPI.retrievePokemonsDetails(pokemonInfos);
             pokemonRepository.insertPokemonsDetails(bddConnection, pokemonsDetails);
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }

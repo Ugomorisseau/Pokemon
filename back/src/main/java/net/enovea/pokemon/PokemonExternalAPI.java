@@ -1,10 +1,13 @@
 package net.enovea.pokemon;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.context.event.GenericApplicationListenerAdapter;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -108,4 +111,5 @@ public class PokemonExternalAPI {
                 }).collect(Collectors.toList());
 
     }
+
 }
