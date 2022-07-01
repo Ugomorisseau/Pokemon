@@ -15,11 +15,23 @@
       <li (click)="goToInfos()" class="liElement li-infos nav-wrapper">
         <span class="span-title">Infos</span>
       </li>
-      <ul class="dropdown-account">
-        <li class="liElement li-account nav-wrapper"><span class="span-title" >Account</span>
+      <ul *ngIf="!logged" class="dropdown-account">
+        <li class="liElement li-account nav-wrapper"><span class="span-title">Account</span>
           <ul>
             <li (click)="goToLogin()"><a>Login</a></li>
             <li (click)="goToRegister()"><a>Register</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="dropdown-account" *ngIf="logged">
+        <li class="liElement li-account nav-wrapper">
+          <span class="span-icon-account">
+            <i class="material-icons">account_circle</i>
+          </span>
+          <ul>
+            <li><a>{{user.username}}</a></li>
+            <li><a>Paramètres</a></li>
+            <li><a>Déconnexion</a></li>
           </ul>
         </li>
       </ul>

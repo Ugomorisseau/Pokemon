@@ -1,9 +1,9 @@
-package net.enovea.pokemon;
+package net.enovea.pokemon.domain;
 
 import lombok.Data;
 
 @Data
-public class Sprites {
+public class Avatars {
     private String back_default;
     private String back_female;
     private String back_shiny;

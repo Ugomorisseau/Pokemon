@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
+import {User} from "../../User";
+import {USER_MOCK} from "../../user-mock";
 
 @Component({
   selector: 'app-navbar',
@@ -9,6 +11,8 @@ import {Router} from "@angular/router";
 export class NavbarComponent implements OnInit {
 
   public clicked : boolean = false;
+  logged : boolean = false;
+  user : User = USER_MOCK;
 
   constructor(private router: Router) {
   }
@@ -19,7 +23,6 @@ export class NavbarComponent implements OnInit {
       this.router.navigate(['/generation']);
     })
   }
-
 
   goToHome(){
     this.clicked = true;

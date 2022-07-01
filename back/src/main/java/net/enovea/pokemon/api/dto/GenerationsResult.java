@@ -1,4 +1,4 @@
-package net.enovea.pokemon;
+package net.enovea.pokemon.api.dto;
 
 import lombok.Data;
 

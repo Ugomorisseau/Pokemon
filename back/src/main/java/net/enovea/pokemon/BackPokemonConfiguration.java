@@ -2,6 +2,8 @@ package net.enovea.pokemon;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.enovea.pokemon.api.PokemonExternalAPI;
+import net.enovea.pokemon.database.PokemonRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

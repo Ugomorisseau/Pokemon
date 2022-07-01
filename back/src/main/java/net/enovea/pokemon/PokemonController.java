@@ -1,5 +1,7 @@
 package net.enovea.pokemon;
 
+import net.enovea.pokemon.api.PokemonExternalAPI;
+import net.enovea.pokemon.database.PokemonRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

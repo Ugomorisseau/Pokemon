@@ -1,9 +1,9 @@
-package net.enovea.pokemon;
+package net.enovea.pokemon.api.dto;
 
 import lombok.Data;
 
 @Data
-public class VersionGroup {
+public class PokemonRequest {
     private String name;
     private String url;
 }

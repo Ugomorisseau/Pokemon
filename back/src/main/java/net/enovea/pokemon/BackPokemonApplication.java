@@ -2,10 +2,15 @@ package net.enovea.pokemon;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.enovea.pokemon.database.PokemonRepository;
+import net.enovea.pokemon.api.dto.GenerationId;
+import net.enovea.pokemon.api.dto.PokemonFormId;
+import net.enovea.pokemon.api.PokemonExternalAPI;
+import net.enovea.pokemon.domain.Generation;
+import net.enovea.pokemon.domain.Pokemon;
 
 import java.sql.Connection;
 import java.util.List;
-import java.util.stream.Stream;
 
 //@SpringBootApplication BIm ca compile car c'est dans commentaire
 public class BackPokemonApplication {
@@ -16,21 +21,31 @@ public class BackPokemonApplication {
         PokemonExternalAPI pokemonExternalAPI = new PokemonExternalAPI(OBJECT_MAPPER);
         PokemonRepository pokemonRepository = new PokemonRepository();
         try {
+
+            // bdd connect
             Connection bddConnection = pokemonRepository.bddConnect();
+            // vide les tables pokemon et generation
             pokemonRepository.deletePokemonTable(bddConnection);
             pokemonRepository.deleteGenerationTable(bddConnection);
 
-            List<PokemonUrl> generationInfos = pokemonExternalAPI.getGenerationsUrl();
-            List<GenerationId> generationDetails = pokemonExternalAPI.retrieveGenerationsDetails(generationInfos);
-            pokemonRepository.insertGenerations(bddConnection, generationDetails);
 
-            List<PokemonUrl> pokemonInfos = pokemonExternalAPI.getPokemonsUrl();
-            Stream<PokemonFormId> pokemonsDetails = pokemonExternalAPI.retrievePokemonsDetails(pokemonInfos);
-            pokemonRepository.insertPokemonsDetails(bddConnection, pokemonsDetails);
+            // Get generations
+            List<Generation> generationIds = pokemonExternalAPI.getGenerations();
+            // Insert generations
+            pokemonRepository.insertGenerations(bddConnection, generationIds);
+
+
+            // Get pokemons
+            List<Pokemon> pokemons = pokemonExternalAPI.getPokemons(generationIds);
+            // Insert pokemons
+            pokemonRepository.insertPokemonsDetails(bddConnection, pokemons.stream());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
+
 
 }

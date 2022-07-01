@@ -1,9 +1,9 @@
-package net.enovea.pokemon;
+package net.enovea.pokemon.api.dto;
 
 import lombok.Data;
 
 @Data
-public class Type {
+public class PokemonSpecies {
     private String name;
     private String url;
 }

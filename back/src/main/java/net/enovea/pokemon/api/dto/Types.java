@@ -1,9 +1,8 @@
-package net.enovea.pokemon;
+package net.enovea.pokemon.api.dto;
 
 import lombok.Data;
 
 @Data
 public class Types {
-    private int slot;
     private Type type;
 }
