@@ -9,7 +9,8 @@ import java.util.List;
 public class PokemonFormId {
     private int id;
     private String name;
-    private List<PokemonSpecies> pokemon;
-    private List<Avatars> sprites;
-    private List<Type> types;
+    private PokemonSpecies pokemon;
+    private Avatars sprites;
+    private Types[] types;
+    private Integer generation_id;
 }

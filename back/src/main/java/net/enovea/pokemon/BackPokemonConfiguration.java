@@ -7,19 +7,20 @@ import net.enovea.pokemon.database.PokemonRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
+
 @Configuration
 public class BackPokemonConfiguration {
-    private final PokemonExternalAPI pokemonExternalAPI;
-    private final PokemonRepository pokemonRepository;
-
-    public BackPokemonConfiguration() {
-        this.pokemonExternalAPI = new PokemonExternalAPI(objectMapper());
-        this.pokemonRepository = new PokemonRepository();
-    }
 
     @Bean
     public PokemonController pokemonController(PokemonExternalAPI pokemonExternalAPI, PokemonRepository pokemonRepository) {
         return new PokemonController(pokemonExternalAPI, pokemonRepository);
+    }
+
+    @Bean
+    public PokemonRepository pokemonRepository(DataSource dataSource) throws SQLException {
+        return new PokemonRepository(dataSource);
     }
 
     @Bean

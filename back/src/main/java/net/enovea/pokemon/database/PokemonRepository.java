@@ -1,40 +1,37 @@
 package net.enovea.pokemon.database;
 
-import net.enovea.pokemon.api.dto.GenerationId;
-import net.enovea.pokemon.api.dto.PokemonFormId;
-import net.enovea.pokemon.api.dto.PokemonSpecies;
-import net.enovea.pokemon.domain.Avatars;
 import net.enovea.pokemon.domain.Generation;
 import net.enovea.pokemon.domain.Pokemon;
+import net.enovea.pokemon.domain.RepositoryPokemon;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class PokemonRepository {
+public class PokemonRepository implements RepositoryPokemon {
+    private Connection connection;
 
-    int index = -1;
-
-    public Connection bddConnect() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/pokedb", "root", "");
+    public PokemonRepository(DataSource datasource) throws SQLException {
+        this.connection = datasource.getConnection();
+        //this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pokedb", "root", "");
     }
 
-    public void deletePokemonTable(Connection connection) throws SQLException {
+    private void deletePokemonTable() throws SQLException {
         try (var statement = connection.createStatement()) {
             statement.executeUpdate("DELETE FROM pokemons");
         }
     }
 
-    public void deleteGenerationTable(Connection connection) throws SQLException {
+    private void deleteGenerationTable() throws SQLException {
         try (var statement = connection.createStatement()) {
             statement.executeUpdate("DELETE FROM generations");
         }
     }
 
-    public void insertGenerations(Connection bddConnection, List<GenerationId> generationIds) throws SQLException {
+    public void insertGenerations(List<Generation> generationIds) throws SQLException {
 
         StringBuilder requestBuilder = new StringBuilder();
 
@@ -43,46 +40,82 @@ public class PokemonRepository {
                 .collect(Collectors.joining(",\n"));
 
         requestBuilder.append(values);
-        try (var statement = bddConnection.createStatement()) {
+        try (var statement = connection.createStatement()) {
             statement.executeUpdate(requestBuilder.toString());
         }
     }
 
-    public Pokemon findPokemonGeneration(Pokemon pokemon, List<Generation> generationIdList) {
-        for (Generation generationId : generationIdList) {
-            for ( String pokemonSpecies : generationId.getPokemons()) {
-                if (pokemonSpecies.equals(pokemon.getName())) {
-                    pokemon.setGeneration_id(generationId.getId());
-                    return pokemon;
-                }
-            }
-        }
-        return pokemon;
-    }
-
-    public void insertPokemonsDetails(Connection bddConnection, Stream<Pokemon> pokemons) throws SQLException {
+    public void insertPokemonsDetails(List<Pokemon> pokemons) throws SQLException {
 
 
         StringBuilder requestBuilder = new StringBuilder();
-        requestBuilder.append("INSERT INTO pokemons (front_default, back_default, id, type1, type2, generation_id, name, nickname) VALUES");
-        var values = pokemons
+        requestBuilder.append("INSERT INTO pokemons (front_default, id, type1, type2, generation_id, name, nickname, attack, hp) VALUES");
+        var values = pokemons.stream()
                 .filter(pokemon -> pokemon.getGeneration_id() != null)
-                .map(pokemon -> "('" + pokemon.getAvatars().getFront_default() + "', '" +
-                        pokemon.getAvatars().getBack_default() + "', '" +
+                .map(pokemon -> "('" + pokemon.getAvatars() + "', '" +
                         pokemon.getId() + "', '" +
                         pokemon.getTypes()[0] + "', '" +
                         (pokemon.getTypes().length > 1 ? pokemon.getTypes()[1] : "") + "', '" +
                         pokemon.getGeneration_id() + "', '" +
                         pokemon.getName() + "', '" +
                         pokemon.getName()
-                         + "')")
+                        + "', '" +
+                        pokemon.getAttack() + "', '" +
+                        pokemon.getHp() + "')")
                 .collect(Collectors.joining(",\n"));
 
         requestBuilder.append(values);
-        try (var statement = bddConnection.createStatement()) {
+        try (var statement = connection.createStatement()) {
             statement.executeUpdate(requestBuilder.toString());
         }
 
     }
 
+    @Override
+    public void deleteTable() throws SQLException {
+        deletePokemonTable();
+        deleteGenerationTable();
+    }
+
+    private Pokemon getPokemon() throws SQLException {
+
+        var pokemon = new Pokemon();
+        StringBuilder requestBuilder = new StringBuilder();
+        requestBuilder.append("SELECT * FROM pokemons WHERE generation_id = 1");
+        try (var statement = connection.createStatement()) {
+            var result = statement.executeQuery(requestBuilder.toString());
+            while (result.next()) {
+                pokemon.setId(result.getInt("id"));
+                pokemon.setName(result.getString("name"));
+                pokemon.setAttack(result.getInt("attack"));
+                pokemon.setHp(result.getInt("hp"));
+                pokemon.setGeneration_id(result.getInt("generation_id"));
+                pokemon.setAvatars(result.getString("front_default"));
+                pokemon.setTypes(new String[]{result.getString("type1"), result.getString("type2")});
+            }
+        }
+        return pokemon;
+    }
+
+    public List<Pokemon> getPokemons() throws SQLException {
+        var pokemons = new ArrayList<Pokemon>();
+        pokemons.add(getPokemon());
+        return pokemons;
+    }
+
+    public List<Generation> getGenerations() throws SQLException {
+        List<Generation> generations = null;
+        StringBuilder requestBuilder = new StringBuilder();
+        requestBuilder.append("SELECT * FROM generations");
+        try (var statement = connection.createStatement()) {
+            var result = statement.executeQuery(requestBuilder.toString());
+            while (result.next()) {
+                var generation = new Generation();
+                generation.setId(result.getInt("id"));
+                generation.setName(result.getString("name"));
+                generations.add(generation);
+            }
+        }
+        return generations;
+    }
 }

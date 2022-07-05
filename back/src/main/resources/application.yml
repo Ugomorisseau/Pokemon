@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/pokedb
+    username: root
+    password: ""
+  liquibase:
+    change-log: db/changeLog/db.changelog-master.xml

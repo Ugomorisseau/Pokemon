@@ -1,10 +1,8 @@
 package net.enovea.pokemon.api;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.enovea.pokemon.api.dto.*;
-import net.enovea.pokemon.database.PokemonRepository;
-import net.enovea.pokemon.domain.Avatars;
-import net.enovea.pokemon.api.dto.GenerationId;
 import net.enovea.pokemon.domain.Generation;
 import net.enovea.pokemon.domain.Pokemon;
 import net.enovea.pokemon.domain.PokemonAPI;
@@ -12,7 +10,6 @@ import net.enovea.pokemon.domain.PokemonAPI;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -23,7 +20,7 @@ public class PokemonExternalAPI implements PokemonAPI {
     private final ObjectMapper objectMapper;
 
     public PokemonExternalAPI(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+        this.objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
     public List<PokemonUrl> getPokemonsUrl() throws IOException {
@@ -67,7 +64,7 @@ public class PokemonExternalAPI implements PokemonAPI {
 
                         scannerTmp.close();
                         var innerResult = objectMapper.readValue(resultBuilder.toString(), PokemonFormId.class);
-                        innerResult.setName(innerResult.getPokemon().stream().map(PokemonSpecies::getName).toString());
+                        innerResult.setName(innerResult.getPokemon().getName());
                         return innerResult;
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -79,11 +76,14 @@ public class PokemonExternalAPI implements PokemonAPI {
     public Pokemon setPokemon(PokemonFormId pokemonFormId) {
         Pokemon pokemon = new Pokemon();
 
-        pokemon.getAvatars().setFront_default(getFrontDefaultPicture(pokemonFormId));
-        pokemon.setId(pokemonFormId.getId());
-        pokemon.setName(pokemonFormId.getName());
-        pokemon.setTypes(getTypeOfPokemon(pokemonFormId));
-
+        if (pokemonFormId != null) {
+            pokemon.setAvatars(getFrontDefaultPicture(pokemonFormId));
+            pokemon.setId(pokemonFormId.getId());
+            pokemon.setName(pokemonFormId.getName());
+            pokemon.setTypes(getTypeOfPokemon(pokemonFormId));
+            pokemon.setAttack(10);
+            pokemon.setHp(10);
+        }
         return pokemon;
     }
 
@@ -93,12 +93,12 @@ public class PokemonExternalAPI implements PokemonAPI {
                 .collect(Collectors.toList());
     }
 
-    private List<String> getTypeOfPokemon(PokemonFormId pokemonFormId) {
-        return pokemonFormId.getTypes().stream().map(Type::getName).toList();
+    private String[] getTypeOfPokemon(PokemonFormId pokemonFormId) {
+    return Arrays.stream(pokemonFormId.getTypes()).map(Types::getType).map(Type::getName).toArray(String[]::new);
     }
 
     private String getFrontDefaultPicture(PokemonFormId pokemonFormId) {
-        return pokemonFormId.getSprites().stream().map(Avatars::getFront_default).toString();
+        return pokemonFormId.getSprites().getFront_default();
     }
 
     public List<PokemonUrl> getGenerationsUrl() throws IOException {
@@ -180,26 +180,35 @@ public class PokemonExternalAPI implements PokemonAPI {
                 .forEach(poke -> poke.setGeneration_id(generationId.getId()));
     }
 
+    public Pokemon findPokemonGeneration(Pokemon pokemon, List<Generation> generationIdList) {
+        for (Generation generationId : generationIdList) {
+            for ( String pokemonSpecies : generationId.getPokemons()) {
+                if (pokemonSpecies.equals(pokemon.getName())) {
+                    pokemon.setGeneration_id(generationId.getId());
+                    return pokemon;
+                }
+            }
+        }
+        return pokemon;
+    }
 
     public List<Pokemon> getPokemons(List<Generation> generationIds) throws IOException {
-
-        PokemonRepository pokemonRepository = new PokemonRepository();
 
         List<PokemonUrl> pokemonUrl = getPokemonsUrl();
         Stream<PokemonFormId> pokemonFormId = retrievePokemonsDetails(pokemonUrl);
         List<Pokemon> pokemons = setPokemons(pokemonFormId.toList())
                 .stream()
-                .map(pokemon -> pokemonRepository.findPokemonGeneration(pokemon, generationIds)).toList();
+                .map(pokemon -> findPokemonGeneration(pokemon, generationIds)).toList();
         generationIds.parallelStream()
                 .forEach(generation -> defineGenerationToItsPokemons(pokemons, generation));
         return pokemons;
     }
 
     @Override
-    public List<Generation> getGenerations() throws SQLException, IOException {
+    public List<Generation> getGenerations() throws IOException {
 
         List<PokemonUrl> generationInfos = getGenerationsUrl();
-        return retrieveGenerationsDetails(generationInfos);
-
+        List<GenerationId> generationId = retrieveGenerationsDetails(generationInfos);
+        return setGenerations(generationId);
     }
 }

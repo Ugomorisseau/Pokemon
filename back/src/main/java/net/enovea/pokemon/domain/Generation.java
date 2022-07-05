@@ -8,5 +8,5 @@ import java.util.List;
 public class Generation {
     private String name;
     private List<String> pokemons;
-    private int id;
+    private Integer id;
 }
