@@ -3,102 +3,102 @@ import {Pokemon} from './pokemon';
 export const POKEMONS: Pokemon[] = [
   {
     id: 1,
-    race: 'Bulbizarre',
+    name: 'Bulbizarre',
     types: ['Plante', 'Poison'],
-    cp: 10,
+    attack: 10,
     hp: 10,
-    picture: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png',
+    avatars: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png',
     created: new Date(),
-    name: 'Bulbizarre'
+    nickname: 'Bulbizarre'
   },
   {
     id: 2,
-    race: 'Salamèche',
+    name: 'Salamèche',
     types: ['Feu'],
-    cp: 156,
+    attack: 156,
     hp: 156,
-    picture: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/004.png',
+    avatars: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/004.png',
     created: new Date(),
-    name: 'Salamèche'
+    nickname: 'Salamèche'
   },
   {
     id: 3,
-    race: 'Carapuce',
+    name: 'Carapuce',
     types: ['Eau'],
-    cp: 200,
+    attack: 200,
     hp: 200,
-    picture: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/007.png',
+    avatars: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/007.png',
     created: new Date(),
-    name: 'Carapuce'
+    nickname: 'Carapuce'
   },
   {
     id: 4,
-    race: 'Aspicot',
+    name: 'Aspicot',
     types: ['Insecte', 'Poison'],
-    cp: 10,
+    attack: 10,
     hp: 10,
-    picture: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/013.png',
+    avatars: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/013.png',
     created: new Date(),
-    name: 'Aspicot'
+    nickname: 'Aspicot'
   },
   {
     id: 5,
-    race: 'Roucool',
+    name: 'Roucool',
     types: ['Vol', 'Normal' ],
-    cp: 90,
+    attack: 90,
     hp: 90,
-    picture: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/016.png',
+    avatars: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/016.png',
     created: new Date(),
-    name: 'Roucool'
+    nickname: 'Roucool'
   },
   {
     id: 6,
-    race: 'Rattata',
+    name: 'Rattata',
     types: ['Normal'],
-    cp: 12,
+    attack: 12,
     hp: 12,
-    picture: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/019.png',
+    avatars: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/019.png',
     created: new Date(),
-    name: 'Rattata'
+    nickname: 'Rattata'
   },
   {
     id: 7,
-    race: 'Pikachu',
+    name: 'Pikachu',
     types: ['Electrik'],
-    cp: 55,
+    attack: 55,
     hp: 55,
-    picture: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/025.png',
+    avatars: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/025.png',
     created: new Date(),
-    name: 'Pikachu'
+    nickname: 'Pikachu'
   },
   {
     id: 8,
-    race: 'Feunard',
+    name: 'Feunard',
     types: ['Feu'],
-    cp: 48,
+    attack: 48,
     hp: 48,
-    picture: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/038.png',
+    avatars: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/038.png',
     created: new Date(),
-    name: 'Feunard'
+    nickname: 'Feunard'
   },
   {
     id: 9,
-    race: 'Nosferapti',
+    name: 'Nosferapti',
     types: ['Poison'],
-    cp: 22,
+    attack: 22,
     hp: 22,
-    picture: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/041.png',
+    avatars: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/041.png',
     created: new Date(),
-    name: 'Nosferapti'
+    nickname: 'Nosferapti'
   },
   {
     id: 10,
-    race: 'Nosferalto',
+    name: 'Nosferalto',
     types: ['Poison'],
-    cp: 68,
+    attack: 68,
     hp: 68,
-    picture: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/042.png',
+    avatars: 'http://assets.pokemon.com/assets/cms2/img/pokedex/detail/042.png',
     created: new Date(),
-    name: 'Nosferalto'
+    nickname: 'Nosferalto'
   }
 ]

@@ -6,11 +6,17 @@ import net.enovea.pokemon.api.PokemonExternalAPI;
 import net.enovea.pokemon.database.PokemonRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @Configuration
+@EnableWebSecurity
 public class BackPokemonConfiguration {
 
     @Bean
@@ -31,5 +37,9 @@ public class BackPokemonConfiguration {
     @Bean
     PokemonExternalAPI pokemonExternalAPI(ObjectMapper objectMapper) {
         return new PokemonExternalAPI(objectMapper);
+    }
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http.anonymous().and().build();
     }
 }

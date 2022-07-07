@@ -7,7 +7,6 @@ import {ColorButtonDirectiveDirective} from "./color-button-directive.directive"
 import {PokemonTypeColorPipe} from "./pokemon-type-color.pipe";
 import {PokemonTypeColorBorderHoverPipe} from "./pokemon-type-color-border-hover.pipe";
 import {RouterModule, Routes} from "@angular/router";
-import {PokemonService} from "./pokemon.service";
 import {FormsModule} from "@angular/forms";
 import {PokemonEditFormComponent} from './pokemon-edit-form/pokemon-edit-form.component';
 import {EditPokemonComponent} from './edit-pokemon/edit-pokemon.component';
@@ -18,6 +17,7 @@ import {NavbarComponent} from "./navbar/navbar.component";
 import {InfosComponent} from './infos/infos.component';
 import { FormLoginComponent } from './form-login/form-login.component';
 import { FormRegisterComponent } from './form-register/form-register.component';
+import {CrudService} from "./crud.service";
 
 
 const pokemonRoutes: Routes = [
@@ -25,7 +25,7 @@ const pokemonRoutes: Routes = [
   {path: 'register', component: FormRegisterComponent},
   {path: 'edit/pokemon/:id', component: EditPokemonComponent },
   {path: 'generation', component: ListGenerationComponent },
-  {path: 'generation/1/pokemons', component: ListPokemonComponent},
+  {path: 'generation/:id/pokemons', component: ListPokemonComponent},
   {path: 'pokemon/:id', component: DetailPokemonComponent},
   {path: 'infos', component: InfosComponent},
 ];
@@ -53,7 +53,7 @@ const pokemonRoutes: Routes = [
     RouterModule.forChild(pokemonRoutes),
     NgImageSliderModule
   ],
-  providers: [PokemonService],
+  providers: [CrudService],
   exports: [
     NavbarComponent
   ]

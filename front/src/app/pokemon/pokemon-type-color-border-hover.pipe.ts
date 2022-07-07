@@ -10,37 +10,37 @@ export class PokemonTypeColorBorderHoverPipe implements PipeTransform {
     let colorBorder: string;
 
     switch (type) {
-      case 'Feu':
+      case 'fire':
         colorBorder = '#ef534b';
         break;
-      case 'Eau':
+      case 'water':
         colorBorder = '#42A5F5';
         break;
-      case 'Plante':
+      case 'grass':
         colorBorder = '#66bb6a';
         break;
-      case 'Insecte':
+      case 'bug':
         colorBorder = '#8D6E63';
         break;
-      case 'Normal':
+      case 'normal':
         colorBorder = 'grey';
         break;
-      case 'Vol':
+      case 'flying':
         colorBorder = '#90CAF9';
         break;
-      case 'Poison':
+      case 'poison':
         colorBorder = '#B388FF';
         break;
-      case 'Fée':
+      case 'fairy':
         colorBorder = 'pink lighten-4';
         break;
-      case 'Psy':
+      case 'psychic':
         colorBorder = 'deep-purple darken-2';
         break;
-      case 'Electrik':
+      case 'electric':
         colorBorder = '#F4FF81';
         break;
-      case 'Combat':
+      case 'fighting':
         colorBorder = 'deep-orange';
         break;
       default:

@@ -35,8 +35,10 @@ public class PokemonRepository implements RepositoryPokemon {
 
         StringBuilder requestBuilder = new StringBuilder();
 
-        requestBuilder.append("INSERT INTO generations (name, id) VALUES");
-        var values = generationIds.stream().map(generationId -> "('" + generationId.getName() + "', '" + generationId.getId() + "')")
+        requestBuilder.append("INSERT INTO generations (name, id, picture) VALUES");
+        var values = generationIds.stream().map(generationId -> "('" + generationId.getName() + "', '"
+                        + generationId.getId() + "' , '"
+                        + generationId.getPicture() + "')")
                 .collect(Collectors.joining(",\n"));
 
         requestBuilder.append(values);
@@ -77,11 +79,11 @@ public class PokemonRepository implements RepositoryPokemon {
         deleteGenerationTable();
     }
 
-    private Pokemon getPokemon() throws SQLException {
+    private Pokemon getPokemon(int pokemon_id) throws SQLException {
 
         var pokemon = new Pokemon();
         StringBuilder requestBuilder = new StringBuilder();
-        requestBuilder.append("SELECT * FROM pokemons WHERE generation_id = 1");
+        requestBuilder.append("SELECT * FROM pokemons WHERE id = ").append(pokemon_id);
         try (var statement = connection.createStatement()) {
             var result = statement.executeQuery(requestBuilder.toString());
             while (result.next()) {
@@ -97,23 +99,59 @@ public class PokemonRepository implements RepositoryPokemon {
         return pokemon;
     }
 
-    public List<Pokemon> getPokemons() throws SQLException {
+    public List<Pokemon> getAllPokemonsOfThisGeneration(Integer generation_id) throws SQLException {
         var pokemons = new ArrayList<Pokemon>();
-        pokemons.add(getPokemon());
-        return pokemons;
-    }
-
-    public List<Generation> getGenerations() throws SQLException {
-        List<Generation> generations = null;
         StringBuilder requestBuilder = new StringBuilder();
-        requestBuilder.append("SELECT * FROM generations");
+        requestBuilder.append("SELECT id FROM pokemons WHERE generation_id = ").append(generation_id);
         try (var statement = connection.createStatement()) {
             var result = statement.executeQuery(requestBuilder.toString());
             while (result.next()) {
-                var generation = new Generation();
+                pokemons.add(getPokemon(result.getInt("id")));
+            }
+        }
+        return pokemons;
+    }
+
+    public Pokemon getPokemonById(int pokemon_id) throws SQLException {
+        return getPokemon(pokemon_id);
+    }
+
+    public List<Pokemon> getPokemons() throws SQLException {
+        var pokemons = new ArrayList<Pokemon>();
+        StringBuilder requestBuilder = new StringBuilder();
+        requestBuilder.append("SELECT id FROM pokemons");
+        try (var statement = connection.createStatement()) {
+            var result = statement.executeQuery(requestBuilder.toString());
+            while (result.next()) {
+                pokemons.add(getPokemon(result.getInt("id")));
+            }
+        }
+        return pokemons;
+    }
+
+    private Generation getGeneration(int generation_id) throws SQLException {
+        var generation = new Generation();
+        StringBuilder requestBuilder = new StringBuilder();
+        requestBuilder.append("SELECT * FROM generations WHERE id = ").append(generation_id);
+        try (var statement = connection.createStatement()) {
+            var result = statement.executeQuery(requestBuilder.toString());
+            while (result.next()) {
                 generation.setId(result.getInt("id"));
                 generation.setName(result.getString("name"));
-                generations.add(generation);
+                generation.setPicture(result.getString("picture"));
+            }
+        }
+        return generation;
+    }
+
+    public List<Generation> getGenerations() throws SQLException {
+        var generations = new ArrayList<Generation>();
+        StringBuilder requestBuilder = new StringBuilder();
+        requestBuilder.append("SELECT id FROM generations");
+        try (var statement = connection.createStatement()) {
+            var result = statement.executeQuery(requestBuilder.toString());
+            while (result.next()) {
+                generations.add(getGeneration(result.getInt("id")));
             }
         }
         return generations;

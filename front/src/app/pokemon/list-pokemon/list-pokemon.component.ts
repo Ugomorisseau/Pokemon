@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Pokemon} from "../pokemon";
 import {ActivatedRoute, Router} from "@angular/router";
-import {PokemonService} from "../pokemon.service";
-import {filter} from "rxjs";
+import {CrudService} from "../crud.service";
 
 @Component({
   selector: 'app-list-pokemon',
@@ -11,33 +10,56 @@ import {filter} from "rxjs";
 })
 export class ListPokemonComponent implements OnInit {
 
+  generation_id: string | null;
   pokemonList: Pokemon[];
   filterList: Pokemon[] = [];
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private pokemonService: PokemonService) {
+              private crudService: CrudService) {
+
   }
 
   ngOnInit() {
-    this.pokemonList = this.pokemonService.getPokemonList();
-    this.filterList = this.pokemonService.getPokemonList();
+    this.generation_id = this.route.snapshot.paramMap.get('id');
+    this.crudService.getPokemonsByGenerationFromApi(this.generation_id).subscribe((result) => {
+      this.pokemonList = result;
+      this.filterList = this.pokemonList;
+    });
   }
 
-  goDetails(pokemon: Pokemon) {
-    this.router.navigate(['/pokemon/' + pokemon.id]);
-  }
 
-  refreshList(filter: any) {
-    this.filterList = this.pokemonList
-      .filter(pokemon =>
-        pokemon.name.toLowerCase().startsWith(filter.name.toLowerCase()))
-      .filter(pokemon => (filter.types.some((type: any) => pokemon.types.includes(type))) || filter.types.length === 0);
-  }
 
-  changeFilter(filter: { name: string, types: string[] }) {
-    this.refreshList(filter);
-  }
+goDetails(pokemon
+:
+Pokemon
+)
+{
+  this.router.navigate(['/pokemon/' + pokemon.id]);
+}
+
+refreshList(filter
+:
+any
+)
+{
+  this.filterList = this.pokemonList
+    .filter(pokemon =>
+      pokemon.nickname.toLowerCase().startsWith(filter.name.toLowerCase()))
+    .filter(pokemon => (filter.types.some((type: any) => pokemon.types.includes(type))) || filter.types.length === 0);
+}
+
+changeFilter(filter
+:
+{
+  name: string, types
+:
+  string[]
+}
+)
+{
+  this.refreshList(filter);
+}
 
 }
 

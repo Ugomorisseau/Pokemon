@@ -1,10 +1,10 @@
 export class Pokemon {
     id: number;
-    race: string;
-    types: Array<string>;
-    cp: number;
-    hp: number;
-    picture: string;
-    created: Date;
     name: string;
+    types: Array<string>;
+    attack: number;
+    hp: number;
+    avatars: string;
+    created: Date;
+    nickname: string;
 }

@@ -27,3 +27,8 @@ textarea.materialize-textarea:focus:not([readonly]) {
 .container{
   margin-top: 5rem;
 }
+
+.img-pokemon{
+  object-position: center;
+  object-fit: contain;
+}

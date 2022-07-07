@@ -11,7 +11,7 @@
           <input type="text" class="form-control" id="name"
                  required
                  pattern="^[a-zA-Z0-9àéèç]{1,25}$"
-                 [(ngModel)]="pokemon.name" name="name"
+                 [(ngModel)]="pokemon.nickname" name="name"
                  #name="ngModel">
           <div [hidden]="name.valid || name.pristine" class="card-panel red accent-1">
             Le nom du pokémon est requis et doit être compris entre 1 et 25 caractères.
@@ -38,7 +38,7 @@
           <input type="number" class="form-control" id="cp"
                  required
                  pattern="^[0-9]{1,2}$"
-                 [(ngModel)]="pokemon.cp" name="cp"
+                 [(ngModel)]="pokemon.attack" name="cp"
                  #cp="ngModel">
           <div [hidden]="cp.valid || cp.pristine"
                class="card-panel red accent-1">

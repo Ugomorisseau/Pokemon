@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {PokemonService} from "../pokemon.service";
 import {Pokemon} from "../pokemon";
+import {CrudService} from "../crud.service";
 
 @Component({
   selector: 'app-filter-pokemons',
@@ -19,11 +20,13 @@ export class FilterPokemonsComponent implements OnInit {
 
   @Output() filterChange = new EventEmitter<{name: string, types: string[]}>();
 
-  constructor(private pokemonService: PokemonService) { }
+  constructor(private crudService: CrudService) { }
 
   ngOnInit(): void {
-    this.pokemonList = this.pokemonService.getPokemonList();
-    this.pokemonTypes = this.pokemonService.getPokemonTypeList();
+    this.crudService.getPokemons().subscribe((result) => {
+      this.pokemonList = result;
+      this.pokemonTypes = this.crudService.getPokemonTypes();
+    });
   }
 
   nameFilter(){

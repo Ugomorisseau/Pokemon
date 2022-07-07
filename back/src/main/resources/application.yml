@@ -5,3 +5,8 @@ spring:
     password: ""
   liquibase:
     change-log: db/changeLog/db.changelog-master.xml
+
+
+logging:
+  level:
+    root: debug

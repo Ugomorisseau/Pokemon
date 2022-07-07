@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Pokemon} from "../pokemon";
-import {PokemonService} from "../pokemon.service";
+import {CrudService} from "../crud.service";
 
 @Component({
   selector: 'app-detail-pokemon',
@@ -10,25 +10,35 @@ import {PokemonService} from "../pokemon.service";
 })
 export class DetailPokemonComponent implements OnInit {
 
-  pokemon: Pokemon | undefined;
+  pokemon: Pokemon;
+  pokemonId: number | null;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private pokemonService: PokemonService) { }
-
-  ngOnInit() {
-    const pokemonId: string|null = this.route.snapshot.paramMap.get('id');
-
-    if (pokemonId){
-      this.pokemon = this.pokemonService.getPokemonById(+pokemonId);
-    }
+              private crudService: CrudService) {
   }
 
-  goBack(){
+  ngOnInit() {
+    this.pokemonId = this.route.snapshot.params['id'];
+    this.crudService.getPokemonById(this.pokemonId).subscribe((result) => {
+      this.pokemon = result;
+      this.setNicknamePokemon();
+    });
+  }
+
+  setNicknamePokemon() {
+    switch (this.pokemon.nickname) {
+      case "":
+        return this.pokemon.nickname = this.pokemon.name;
+    }
+    return this.pokemon.nickname = this.pokemon.name;
+  }
+
+  goBack() {
     this.router.navigate(['/generation/1/pokemons']);
   }
 
-  goToEditPokemon(pokemon: Pokemon){
+  goToEditPokemon(pokemon: Pokemon) {
     this.router.navigate(['/edit/pokemon/', pokemon.id]);
   }
 

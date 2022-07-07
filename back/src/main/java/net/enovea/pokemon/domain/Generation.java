@@ -9,4 +9,6 @@ public class Generation {
     private String name;
     private List<String> pokemons;
     private Integer id;
+    private String picture;
 }
+

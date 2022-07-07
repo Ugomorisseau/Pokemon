@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
   name: 'pokemonTypeColor'
@@ -9,38 +9,56 @@ export class PokemonTypeColorPipe implements PipeTransform {
     let color: string;
 
     switch (type) {
-      case 'Feu':
+      case 'fire':
         color = 'red lighten-1';
         break;
-      case 'Eau':
+      case 'water':
         color = 'blue lighten-1';
         break;
-      case 'Plante':
+      case 'grass':
         color = 'green lighten-1';
         break;
-      case 'Insecte':
+      case 'bug':
         color = 'brown lighten-1';
         break;
-      case 'Normal':
+      case 'normal':
         color = 'grey lighten-3';
         break;
-      case 'Vol':
+      case 'flying':
         color = 'blue lighten-3';
         break;
-      case 'Poison':
+      case 'poison':
         color = 'deep-purple accent-1';
         break;
-      case 'Fée':
+      case 'fairy':
         color = 'pink lighten-4';
         break;
-      case 'Psy':
+      case 'psychic':
         color = 'deep-purple darken-2';
         break;
-      case 'Electrik':
+      case 'electric':
         color = 'lime accent-1';
         break;
-      case 'Combat':
+      case 'fighting':
         color = 'deep-orange';
+        break;
+      case 'ground':
+        color = 'brown lighten-10';
+        break;
+      case 'rock':
+        color = 'brown lighten-1';
+        break;
+      case 'steel':
+        color = 'grey lighten-3';
+        break;
+      case 'ice':
+        color = 'cyan lighten-1';
+        break;
+      case 'ghost':
+        color = 'deep-purple darken-10';
+        break;
+      case 'dragon':
+        color = 'deep-purple darken';
         break;
       default:
         color = 'grey';

@@ -93,6 +93,17 @@ public class PokemonExternalAPI implements PokemonAPI {
                 .collect(Collectors.toList());
     }
 
+    private void setPictureGeneration(Generation generation){
+                    if (generation.getId() == 1) generation.setPicture("https://cdn.discordapp.com/attachments/912656311307612181/989136180606013460/gen-1-starters-540x308.webp");
+                    if (generation.getId() == 2) generation.setPicture("https://cdn.discordapp.com/attachments/897051051201540167/989141590754877550/pokemon-gen-ii-starters.png");
+                    if (generation.getId() == 3) generation.setPicture("http://www.pixenli.com/images/1313271739018767200.png");
+                    if (generation.getId() == 4) generation.setPicture("http://www.pixenli.com/images/1313271604026614600.png");
+                    if (generation.getId() == 5) generation.setPicture("https://i.skyrock.net/5518/70945518/pics/3089412473_1_3_8B8zFLYV.png");
+                    if (generation.getId() == 6) generation.setPicture("https://www.pokemontrash.com/images/pokemon-x-y/pokemon-starters/starters.png");
+                    if (generation.getId() == 7) generation.setPicture("https://www.pokemontrash.com/images/soleil-lune/1534957817654.png");
+                    if (generation.getId() == 8) generation.setPicture("https://cdn.discordapp.com/attachments/897051051201540167/989146016412483594/WSKPRnf.png");
+    }
+
     private String[] getTypeOfPokemon(PokemonFormId pokemonFormId) {
     return Arrays.stream(pokemonFormId.getTypes()).map(Types::getType).map(Type::getName).toArray(String[]::new);
     }
@@ -145,13 +156,14 @@ public class PokemonExternalAPI implements PokemonAPI {
 
     }
 
-    public Generation setGeneration(GenerationId generationId) {
+    public Generation setGeneration(GenerationId generationId){
 
         Generation generation = new Generation();
 
         generation.setId(generationId.getId());
         generation.setName(generationId.getName());
         generation.setPokemons(getPokemonsNameByGeneration(generationId));
+        setPictureGeneration(generation);
 
         return generation;
     }

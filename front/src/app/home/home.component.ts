@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
 import {Generation} from "../pokemon/generation";
-import {GENERATIONS} from "../pokemon/mock-generations-list";
+import {CrudService} from "../pokemon/crud.service";
 
 @Component({
   selector: 'app-home',
@@ -10,13 +9,25 @@ import {GENERATIONS} from "../pokemon/mock-generations-list";
 })
 export class HomeComponent implements OnInit {
 
-  generationList: Generation[] = GENERATIONS;
+  generationList: Generation[];
 
-  constructor() { }
+  constructor(private crudService: CrudService) { }
 
+  setInfosOfGenerations() {
+    for (let generation of this.generationList) {
+      generation.thumbImage = generation.picture ;
+      generation.image = generation.picture ;
+      generation.title = generation.name ;
+    }
+    }
 
   ngOnInit(): void {
+    this.crudService.getGenerations().subscribe(
+      (result) => {
+        this.generationList = result;
+        this.setInfosOfGenerations();
+      }
+    );
   }
-
 }
 

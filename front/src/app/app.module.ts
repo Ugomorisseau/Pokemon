@@ -7,8 +7,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import {FormsModule} from "@angular/forms";
 import { HomeComponent } from './home/home.component';
 import { NgImageSliderModule } from 'ng-image-slider';
-
-
+import {HttpClientModule} from "@angular/common/http";
+import {PokemonService} from "./pokemon/pokemon.service";
 
 @NgModule({
   declarations: [
@@ -21,9 +21,10 @@ import { NgImageSliderModule } from 'ng-image-slider';
     FormsModule,
     PokemonModule,
     AppRoutingModule,
-    NgImageSliderModule
+    NgImageSliderModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [PokemonService],
   exports: [
   ],
   bootstrap: [AppComponent]

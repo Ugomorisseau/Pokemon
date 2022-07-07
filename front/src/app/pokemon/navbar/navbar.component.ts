@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {User} from "../../User";
 import {USER_MOCK} from "../../user-mock";
+import {CrudService} from "../crud.service";
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,8 @@ export class NavbarComponent implements OnInit {
   logged : boolean = false;
   user : User = USER_MOCK;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private crudService: CrudService) {
   }
 
   goToPokedex() {
@@ -56,4 +58,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  initDB() {
+    this.crudService.initDB();
+  }
 }
